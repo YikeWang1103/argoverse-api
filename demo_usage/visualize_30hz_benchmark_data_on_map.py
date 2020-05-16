@@ -118,6 +118,9 @@ class DatasetOnMapVisualizer:
                         logger.info(f"\tOn file {i} of {log_id}")
                     lidar_timestamp = ply_fpath.split("/")[-1].split(".")[0].split("_")[-1]
                     lidar_timestamp = int(lidar_timestamp)
+                    print("Lidar timestamp = ",lidar_timestamp) # added by Yike
+                    print("Log Egopose Dict = ", self.log_egopose_dict)
+                    
                     if lidar_timestamp not in self.log_egopose_dict[log_id]:
                         all_available_timestamps = sorted(self.log_egopose_dict[log_id].keys())
                         diff = (all_available_timestamps[0] - lidar_timestamp) / 1e9
@@ -132,6 +135,7 @@ class DatasetOnMapVisualizer:
                         # ax_map = fig.add_subplot(131)
                         ax_3d = fig.add_subplot(111)
                         # ax_rgb = fig.add_subplot(133)
+                        plt.ion() # added by Yike
 
                     # need the ego-track here
                     pose_city_to_ego = self.log_egopose_dict[log_id][lidar_timestamp]
